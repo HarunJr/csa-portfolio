@@ -38,6 +38,13 @@ const WalletConnect = () => {
         }
     }
 
+    const connectionButtionClick = () => {
+        const first_part = connectedAddress.substring(0, 7);
+        const last_part = connectedAddress.substring(connectedAddress.length - 5);
+    
+        return connectedAddress != "" ? first_part +"..."+ last_part : 'Connect'
+    }
+
     useEffect(() => {
         let wallets = []
         if (window.cardano) {
@@ -52,7 +59,7 @@ const WalletConnect = () => {
     return (
         <>
             <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn m-1">{connectedAddress != "" ? 'Connected' : 'Connect'}</label>
+                <label tabIndex={0} className="btn m-1 normal-case">{connectionButtionClick()}</label>
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-300 rounded-box w-52">
                     {availableWallets.map((wallet) =>
                         <li key={wallet} onClick={() => { selectWallet(wallet) }} ><a>{wallet}</a></li>

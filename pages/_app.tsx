@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { StoreProvider } from 'easy-peasy'
 import store from '../utils/store'
+import SideNav from '../components/SideNav'
 
 function MyApp({ Component, pageProps }: AppProps) {
   
