@@ -4,8 +4,14 @@ import NftCard from './NftCard'
 
 const NftGrid = (props : any) => {
     useEffect(()=>{
-console.log(props)
+    console.log("Log:" + props)
+
     },[props])
+
+    if (!props || props.length === 0) {
+        return <p>No NFTs found.</p>;
+    }
+
     return (
         <>
         <div className="grid grid-cols-4 gap-2">

@@ -14,12 +14,14 @@ import Layout from '../components/Layout'
 const Home: NextPage = () => {
   const walletStore = useStoreState((state: any) => state.wallet)
   const [nftList, setNftList] = useState([])
+  const [balance, setBalance] = useState()
 
   useEffect(() => {
     //const lucid = initLucid(walletStore.name)
     if (walletStore.address != "") {
       getAssets(walletStore.address)
-        .then((res: any) => { setNftList(res.addressInfo.nfts) })
+      .then((res: any) => { setNftList(res.addressInfo.nfts), setBalance(res.addressInfo.balance) })
+      // .then((res: any) => { setBalance(res.addressInfo.balance) })
     }
   }, [walletStore.address])
 
@@ -31,9 +33,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="px-10 ">
-        <div>Address: {walletStore.address}</div>
+      <div>Address: {walletStore.address}</div>
+      <div>Balance: {balance}</div>
         <div className="mx-40 my-10">
-          <h2>Your NFTs:</h2>
+        <h2>Your NFTs:</h2>
           <NftGrid nfts={nftList} />
         </div>
       </div>

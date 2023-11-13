@@ -1,5 +1,6 @@
 export const getAssets = async (address: string) => {
     var allNFTs: any = []
+    var allNFTs: any = []
     var addressInfo = { nfts: allNFTs, balance: 0 }
     const data = await fetch(
         `https://cardano-preprod.blockfrost.io/api/v0/addresses/${address}`,
@@ -17,7 +18,7 @@ export const getAssets = async (address: string) => {
         console.log("error")
     }
 
-    const amount = data['amount']
+    const amount = data['amount'] || [];
     if (amount.length > 0) {
         amount.map(async (asset: any) => {
             //var allNFTs = []
@@ -32,14 +33,20 @@ export const getAssets = async (address: string) => {
                         }
                     }
                 ).then(res => res.json());
+                // const assetName = data['asset_name'];
+                const assetName = Buffer.from(data['asset_name'], 'hex').toString(); // Decode from hex to string
                 const meta = data['onchain_metadata'];
                 if (meta && meta.image) {
-                    allNFTs.push({ ...meta, assetId: data.asset })
+                    console.log("meta", meta)
+                    allNFTs.push({ ...meta, assetName, assetId: data.asset })
+                    
                 } else {
-                    //   console.log("nometa", data)
+                    console.log("nometa: "+ assetName )
+                    allNFTs.push({assetName})
                 }
             } else if (asset.unit === 'lovelace') {
-                addressInfo.balance === asset.quantity
+                // addressInfo.balance === asset.quantity
+                addressInfo.balance = asset.quantity / 1000000
             }
         })
     }

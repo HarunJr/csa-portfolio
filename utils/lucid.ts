@@ -19,6 +19,10 @@ const initLucid = async (wallet: string) => {
     //setLucid(lucid)
     return lucid;
 }
+// curl -H "project_id: preprodLT9nUTb22P26FiVH42jSFJU2IZaNxZVz" \
+// "https://cardano-preprod.blockfrost.io/api/v0/addresses/addr_test1qzejxr24w9ld3t6fhx7ew03jd3ag9fr0s3tl8fyu206k9h06antkyruk5hsmyu5geq52w0cgfvg7fsju4qagpfkr90uqj93lmh/transactions?count=1&order=desc"
 
+// curl -H "project_id: preprodLT9nUTb22P26FiVH42jSFJU2IZaNxZVz" \
+// "https://cardano-preprod.blockfrost.io/api/v0/assets/a10bc10b9e82ad1f75741a8522c6f8c84175aae68c1617a1822699e5000de140456d7572676f544e"
 
 export default initLucid;
