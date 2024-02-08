@@ -9,11 +9,11 @@ import initLucid from '../utils/lucid'
 import {mintNft, burnNft} from '../utils/minitng'
 
 
-const NftCard = (props: any) => {
-    const walletStore = useStoreState((state: any) => state.walletModel.wallet)
+const UtxoCard = (props: any) => {
+    const walletStore = useStoreState((state: any) => state.wallet)
     const [lucid, setLucid] = useState<Lucid>()
 
-    const imageSrc = props.meta.image?.replace("ipfs://", "https://ipfs.io/ipfs/");
+    // const imageSrc = props.meta.image?.replace("ipfs://", "https://ipfs.io/ipfs/");
     const tokenAsset = props.meta.tokenAsset; // Assuming this is already a human-readable string
     const tokenPolicy = props.meta.policy_id; // Assuming this is already a human-readable string
     const tokenName = props.meta.assetName; // Assuming this is already a human-readable string
@@ -24,7 +24,7 @@ const NftCard = (props: any) => {
         if (lucid) {
           ;
         } else {
-          initLucid(walletStore.name).then((Lucid: Lucid | undefined) => { setLucid(Lucid) })
+          initLucid(walletStore.name).then((Lucid: Lucid) => { setLucid(Lucid) })
         }
       }, [lucid]);
   
@@ -45,4 +45,4 @@ const NftCard = (props: any) => {
     )
 }
 
-export default NftCard;
+export default UtxoCard;

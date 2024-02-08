@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import WalletConnect from './WalletConnect'
 import { useRouter } from 'next/router';
 import Buttons from './Buttons';
 import { useState } from 'react';
@@ -10,7 +9,7 @@ const SideNav = ({ children }: any) => {
     return (
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content m-10">
+      <div className="drawer-content mx-10 ">
         {/* Page content here */}
         {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
         {children}
@@ -37,6 +36,12 @@ const SideNav = ({ children }: any) => {
           </Link>
           <Link href="/mint_cip_25">
             <li><a>Mint CIP25</a></li>
+          </Link>
+          <Link href="/project">
+            <li><a>Project</a></li>
+          </Link>
+          <Link href="/userspostgres">
+            <li><a>Users Postgres</a></li>
           </Link>
           <Link href="/mint_cip_68">
             <li><a>Mint CIP68</a></li>

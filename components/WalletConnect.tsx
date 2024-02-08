@@ -5,26 +5,29 @@ import initLucid from "../utils/lucid";
 
 const WalletConnect = () => {
     // const [availableWallets, setAvailableWallets] = useState<string[]>([])
-    const walletStore = useStoreState(state => state.wallet)
-    const setWallet = useStoreActions(actions => actions.setWallet)
-    const availableWallets = useStoreState(state => state.availableWallets)
-    const setAvailableWallets = useStoreActions(actions => actions.setAvailableWallets)
+    const walletStore = useStoreState(state => state.walletModel)
+    const setWallet = useStoreActions(actions => actions.walletModel.setWallet)
+    const availableWallets = useStoreState(state => state.walletModel.availableWallets)
+    const setAvailableWallets = useStoreActions(actions => actions.walletModel.setAvailableWallets)
     
     const [connectedAddress, setConnectedAddress] = useState("")
     
     const loadWalletSession = async () => {
-        if (walletStore.connected &&
-            walletStore.name &&
+        if (walletStore.wallet.connected &&
+            walletStore.wallet.name &&
             window.cardano &&
-            (await window.cardano[walletStore.name.toLowerCase()].enable())
+            (await window.cardano[walletStore.wallet.name.toLowerCase()].enable())
         ) {
-            walletConnected(walletStore.name)
+            walletConnected(walletStore.wallet.name)
         }
     }
 
     const walletConnected = async (wallet: string, connect: boolean = true) => {
-        const addr = connect ? await (await initLucid(wallet)).wallet.address() : ''
+        const lucid = await initLucid(wallet);
+        const addr = connect && lucid ? await lucid.wallet.address() : ''
         const walletStoreObj = connect ? { connected: true, name: wallet, address: addr } : { connected: false, name: '', address: '' }
+      
+        console.log("Address: "+addr)
         setConnectedAddress(addr)
         setWallet(walletStoreObj)
     }
@@ -38,7 +41,7 @@ const WalletConnect = () => {
         }
     }
 
-    const connectionButtionClick = () => {
+    const connectionButtonClick = () => {
         const first_part = connectedAddress.substring(0, 7);
         const last_part = connectedAddress.substring(connectedAddress.length - 5);
     
@@ -59,7 +62,7 @@ const WalletConnect = () => {
     return (
         <>
             <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn m-1 normal-case">{connectionButtionClick()}</label>
+                <label tabIndex={0} className="btn m-1 normal-case">{connectionButtonClick()}</label>
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-300 rounded-box w-52">
                     {availableWallets.map((wallet) =>
                         <li key={wallet} onClick={() => { selectWallet(wallet) }} ><a>{wallet}</a></li>

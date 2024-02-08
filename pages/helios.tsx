@@ -24,23 +24,31 @@ import Layout from '../components/Layout'
 // console.log(helios.deserializeUplc(`{"type": "PlutusScriptV1", "cborHex": "${cborHex}"}`))
 
 const Helios: NextPage = () => {
-  const walletStore = useStoreState((state: any) => state.wallet)
+  const walletStore = useStoreState((state: any) => state.walletModel.wallet)
   const [nftList, setNftList] = useState([])
   const [lucid, setLucid] = useState<Lucid>()
   const [script, setScript] = useState<SpendingValidator>()
   const [scriptAddress, setScriptAddress] = useState("")
   const [ariadyTxHash, setAriadyTxHash] = useState("")
   const [efrainTxHash, setEfrainTxHash] = useState("")
+  const [isLoading, setIsLoading] = useState(true) // Add a loading state
 
 
   useEffect(() => {
     if (lucid) {
-      ;
+      setIsLoading(true) // Set loading to true when fetching data
+      setIsLoading(false) // Set loading to false after data is fetched
+    ;
     } else {
+      setIsLoading(true) // Set loading to true when fetching data
       initLucid(walletStore.name).then((Lucid: Lucid) => { setLucid(Lucid) })
+      setIsLoading(false) // Set loading to false after data is fetched
     }
   }, [lucid])
 
+  if (isLoading) {
+    return <div>Loading...</div> // Render a loading message while fetching data
+  }
 
   const Metadata333 = Data.Map(Data.Bytes(), Data.Any());
   type Metadata333 = Data.Static<typeof Metadata333>;

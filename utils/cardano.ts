@@ -1,5 +1,5 @@
 export const getAssets = async (address: string) => {
-    var allNFTs: any = []
+    // var allNFTs: any = []
     var allNFTs: any = []
     var addressInfo = { nfts: allNFTs, balance: 0 }
     const data = await fetch(
@@ -33,7 +33,8 @@ export const getAssets = async (address: string) => {
                         }
                     }
                 ).then(res => res.json());
-                // const assetName = data['asset_name'];
+                const tokenAsset = data['asset'];
+                const policy_id = data['policy_id'];
                 const assetName = Buffer.from(data['asset_name'], 'hex').toString(); // Decode from hex to string
                 const meta = data['onchain_metadata'];
                 if (meta && meta.image) {
@@ -42,7 +43,7 @@ export const getAssets = async (address: string) => {
                     
                 } else {
                     console.log("nometa: "+ assetName )
-                    allNFTs.push({assetName})
+                    allNFTs.push({tokenAsset, policy_id, assetName})
                 }
             } else if (asset.unit === 'lovelace') {
                 // addressInfo.balance === asset.quantity
