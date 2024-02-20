@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout'
 // import { AssetName } from 'lucid-cardano/types/src/core/wasm_modules/cardano_multiplatform_lib_web/cardano_multiplatform_lib'
 
-import { requestValidator } from "../utils/contract";
+import { cancelRequest, requestValidator } from "../utils/contract";
 
 const Request: NextPage = () => {
   const walletStore = useStoreState((state: any) => state.walletModel.wallet)
@@ -60,39 +60,19 @@ const Request: NextPage = () => {
     console.log("Updated datumList: ", datumList);
   }, [datumList]);
 
-
-  // const processFields = (fields: any) => {
-  //   let resultString = ""; // Initialize an empty string to accumulate data
-
-  //   for (const data of fields) {
-  //     if (Array.isArray(data.fields)) {
-  //       console.log('Processing nested fields:', data.fields);
-  //       resultString += processFields(data.fields); // Concatenate the results of the recursive call
-  //     } else {
-  //       console.log('Field data:', data);
-  //       resultString += JSON.stringify(data) + ", \n"; // Append the data to the result string
-  //     }
-  //   }
-  //   return resultString; // Return the accumulated string
-  // }
-
-  async function deleteDatum(index: number): Promise<void> {
-    throw new Error('Function not implemented.')
-  }
-
   return (
 
     <div className="flex-grow space-y-2">
       {datumList.map((datum, index) => (
         <div key={index} className="flex items-center justify-between bg-white p-4 rounded-lg shadow">
           <DatumCardComponent datum={datum} />
-          <button onClick={() => deleteDatum(index).then(datum => {
+          {lucid && <button onClick={() => cancelRequest(lucid, index, datum).then(datum => {
             // if (datum) {
-            //   deleteDatumFromList(index);
+            //   cancelRequestFromList(index);
             // }
           })} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
-            Delete Datum
-          </button>
+            Cancel Request
+          </button>}
         </div>
       ))}
     </div>
@@ -112,6 +92,5 @@ const Request: NextPage = () => {
     // </div>
   );
 };
-
 
 export default Request;

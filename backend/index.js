@@ -17,13 +17,22 @@ app.use((req, res, next) => {
 
 // Create minted data
 app.post('/mints', async (req, res) => {
+    const { tokenName, borrowPolicyId, lendPolicyId, mintingPolicy, scriptAddress, validator } = req.body;
+
+    // Validate the data
+    if (!tokenName || !borrowPolicyId || !lendPolicyId || !mintingPolicy || !scriptAddress || !validator) {
+        return res.status(400).json({ message: 'Missing required field' });
+    }
+    
     try {
         const mints = await prisma.mintData.create({
             data: {
                 tokenName: req.body.tokenName,
-                policyId: req.body.policyId,
+                borrowPolicyId: req.body.borrowPolicyId,
+                lendPolicyId: req.body.lendPolicyId,
                 mintingPolicy: req.body.mintingPolicy,
-                scriptAddress: req.body.scriptAddress
+                scriptAddress: req.body.scriptAddress,
+                validator: req.body.validator
             },
         });
         res.status(201).json({mints});

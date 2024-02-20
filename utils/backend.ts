@@ -25,10 +25,13 @@ export interface BorrowDatum {
 export interface MintData {
     id: number;
     tokenName: string;
-    policyId: string; // Moved policyId to be the second property
+    borrowPolicyId: string; 
+    lendPolicyId: string; 
     mintingPolicy: string;
     scriptAddress: string;
+    validator: string;
 };
+
 
 interface MintDataResponse {
     mints: MintData;
@@ -36,10 +39,12 @@ interface MintDataResponse {
 
 export interface NewMintData {
     tokenName: string;
-    policyId: string; // Moved policyId to be the second property
+    borrowPolicyId: string; 
+    lendPolicyId: string; 
     mintingPolicy: string;
     scriptAddress: string;
-}
+    validator: string;
+};
 
 //create MintData
 export const createMintData = async (newMintData: NewMintData) => {
@@ -50,9 +55,11 @@ export const createMintData = async (newMintData: NewMintData) => {
         console.log(`Response Data: ${JSON.stringify(response.data, null, 2)}`);
         console.log(`Mint ID: ${mint.id}`);
         console.log(`Mint TokenName: ${mint.tokenName}`);
-        console.log(`Mint PolicyId: ${mint.policyId}`);
+        console.log(`Mint BorrowPolicyId: ${mint.borrowPolicyId}`);
+        console.log(`Mint LenderPolicyId: ${mint.lendPolicyId}`);
         console.log(`Mint MintingPolicy: ${mint.mintingPolicy}`);
         console.log(`Mint ScriptAddress: ${mint.scriptAddress}`);
+        console.log(`Mint Validator: ${mint.validator}`);
         return mint;
     } catch (error) {
         console.error('BackendResponse: Error creating mint:', error);
@@ -73,9 +80,11 @@ export const getMintData = async () => {
             mintsInfo.forEach(mint => {
                 console.log(`getMintData Mint Id: ${mint.id}`);
                 console.log(`getMintData Mint TokenName: ${mint.tokenName}`);
-                console.log(`Mint PolicyId: ${mint.policyId}`);
+                console.log(`Mint BorrowPolicyId: ${mint.borrowPolicyId}`);
+                console.log(`Mint LenderPolicyId: ${mint.lendPolicyId}`);
                 console.log(`Mint MintingPolicy: ${mint.mintingPolicy}`);
                 console.log(`Mint ScriptAddress: ${mint.scriptAddress}`);
+                console.log(`Mint Validator: ${mint.validator}`);
 
             });
         }
@@ -90,18 +99,19 @@ export const deleteMintData = async (mintId: number) => {
     try {
         const response = await axios.delete<MintDataResponse>(`${apiUrl}/users/${mintId}`);
         const mint: MintData = response.data.mints;
-        console.log(`Mint TokenName: ${mint.tokenName}`);
-        console.log(`Mint PolicyId: ${mint.policyId}`);
-        console.log(`Mint MintingPolicy: ${mint.mintingPolicy}`);
-        console.log(`Mint ScriptAddress: ${mint.scriptAddress}`);
+        console.log(`deleteMintData TokenName: ${mint.tokenName}`);
+        console.log(`deleteMintData Mint TokenName: ${mint.tokenName}`);
+        console.log(`deleteMintData BorrowPolicyId: ${mint.borrowPolicyId}`);
+        console.log(`deleteMintData LenderPolicyId: ${mint.lendPolicyId}`);
+        console.log(`deleteMintData MintingPolicy: ${mint.mintingPolicy}`);
+        console.log(`deleteMintData ScriptAddress: ${mint.scriptAddress}`);
+        console.log(`deleteMintData Validator: ${mint.validator}`);
 
         return mint;
     } catch (error) {
         console.error('BackendResponse: Error deleting mint:', error);
     }
 }
-
-
 
 export interface User {
     id: number;

@@ -118,12 +118,11 @@ export const mintNft = async (lucid: Lucid | undefined, name: string) => {
   };
 };
 
-const getNftUtxo = (utxos: UTxO[], tokenName: string) => {
+export const getNftUtxo = (utxos: UTxO[], tokenName: string) => {
   const utxoWithNft = utxos.find(utxo =>
     Object.keys(utxo.assets).some((asset) =>
       asset.endsWith(tokenName)
     ));
-
 
   return utxoWithNft;
 };
@@ -195,7 +194,7 @@ export const burnNft = async (lucid: Lucid | undefined, assetName: string, token
     try {
       const policyData = await fetchMintingPolicy(tokenName);
       // Now policyData contains the mintingPolicy and policyId
-      console.log(policyData)
+      console.log("policyData: ",policyData)
 
       if (!policyData || !policyData.mintingPolicy) {
         sendToAlwaysFailsScript(lucid, assetName)
