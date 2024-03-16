@@ -269,7 +269,7 @@ const Borrow: NextPage = () => {
           Sample Borrow Request:
         </p>
       </div>
-      <div className="card w-96 bg-base-100 shadow-lg">
+      <div className="card w-96 bg-base-100 shadow-lg"> 
         {/* Borrow */}
         {lucid && <form onSubmit={() => { borrowRequest(lucid) }} className="p-4 rounded shadow flex flex-col items-center">
 

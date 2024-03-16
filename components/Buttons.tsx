@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import WalletConnect from './WalletConnect'
 import { useRouter } from 'next/router';
 
 const Buttons = () => {

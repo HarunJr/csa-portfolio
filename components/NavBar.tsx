@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import WalletConnect from './WalletConnect'
+import WalletConnectL from "./WalletConnectL";
 
 const NavBar = () => {
     return (
@@ -8,7 +9,9 @@ const NavBar = () => {
             <Link href="/" className="btn btn-ghost normal-case text-xl">Cardano</Link>
         </div>
         <div className="flex-none">
-            <WalletConnect />
+            {/* <WalletConnect /> */}
+            <WalletConnectL />
+
         </div>
     </nav>
 

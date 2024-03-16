@@ -22,18 +22,18 @@ const MintCip68: NextPage = () => {
 
   useEffect(() => {
     if (lucid) {
-      setIsLoading(true) // Set loading to true when fetching data
-      setIsLoading(false) // Set loading to false after data is fetched
-        ;
+      // setIsLoading(true) // Set loading to true when fetching data
+      // setIsLoading(false) // Set loading to false after data is fetched
+      //   ;
     } else {
-      setIsLoading(true) // Set loading to true when fetching data
+      // setIsLoading(true) // Set loading to true when fetching data
       initLucid(walletStore.name).then((Lucid: Lucid | undefined) => { setLucid(Lucid) })
     }
   }, [lucid]);
 
-  if (isLoading) {
-    return <div>Loading...</div> // Render a loading message while fetching data
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div> // Render a loading message while fetching data
+  // }
 
 
   const Metadata333 = Data.Map(Data.Bytes(), Data.Any());

@@ -28,23 +28,23 @@ const Project: NextPage = () => {
 
   useEffect(() => {
     if (walletStore.address != "") {
-      setIsLoading(true) // Set loading to true when fetching data
+      // setIsLoading(true) // Set loading to true when fetching data
       getAssets(walletStore.address)
         .then((res: any) => {
           setNftList(res.addressInfo.nfts),
-          setBalance(res.addressInfo.balance),
-          setIsLoading(false) // Set loading to false after data is fetched
+          setBalance(res.addressInfo.balance)
+          // setIsLoading(false) // Set loading to false after data is fetched
         })
       // .then((res: any) => { setBalance(res.addressInfo.balance) })
     }
     else {
-      setIsLoading(false) // Set loading to false if there's no address
+      // setIsLoading(false) // Set loading to false if there's no address
     }
   }, [walletStore.address])
 
-  if (isLoading) {
-    return <div>Loading...</div> // Render a loading message while fetching data
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div> // Render a loading message while fetching data
+  // }
   return (
     <Layout className="bg-white">
       <div>Address: {walletStore.address}</div>

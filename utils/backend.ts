@@ -215,3 +215,42 @@ export const deleteUser = async (userId: number) => {
     }
 }
 
+export interface Pair {
+    amount: number;
+    base: string;
+    currency: string;
+}
+
+interface PairResponse {
+    pairs: Pair;
+}
+
+// https://docs.cloud.coinbase.com/sign-in-with-coinbase/docs/api-prices
+export const getCardanoBuyPairs = async (pair: string) => {
+    const response = await fetch(`https://api.coinbase.com/v2/prices/${pair}/buy`)
+        .then(res => res.json());
+    console.log("getCardanoBuyPairs: " + JSON.stringify(response))
+
+    const resPair: Pair = response.data;
+    console.log(`Buy Pair amount:    ${resPair.amount}`);
+    console.log(`Buy Pair base :     ${resPair.base}`);
+    console.log(`Buy Pair currency : ${resPair.currency}`);
+
+    return { resPair }
+}
+
+export const getCardanoSellPairs = async (pair: string) => {
+    const response = await fetch(`https://api.coinbase.com/v2/prices/${pair}/sell`)
+        .then(res => res.json());
+    console.log("getCardanoSellPairs: " + JSON.stringify(response))
+
+    const resPair: Pair = response.data;
+    console.log(`Sell Pair amount:    ${resPair.amount}`);
+    console.log(`Sell Pair base :     ${resPair.base}`);
+    console.log(`Sell Pair currency : ${resPair.currency}`);
+
+    return { resPair }
+}
+
+
+

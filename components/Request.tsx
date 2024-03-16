@@ -43,6 +43,8 @@ const Request: NextPage = () => {
       getValidatorsFromDB().then((res: Address[]) => {
         console.log("getValidatorsFromDB: " + res);
         setValidatorAddresses(res)
+
+       
       });
 
       let response: any[] = [];
@@ -58,6 +60,7 @@ const Request: NextPage = () => {
 
   useEffect(() => {
     console.log("Updated datumList: ", datumList);
+
   }, [datumList]);
 
   return (

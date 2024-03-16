@@ -7,6 +7,11 @@ module.exports = {
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {
+      scale: ['active', 'hover'],
+    },
+  },
   plugins: [require("daisyui")],
   daisyui: {
     styled: true,

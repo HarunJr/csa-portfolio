@@ -288,7 +288,6 @@ export const cancelRequest = async (lucid: Lucid, index: number, datum: any) => 
                 if (datum.borrower == paymentCredential?.hash!) {
                     console.log("Found your request UTXO... " + utxos[0].txHash + " #" + utxos[0].outputIndex);
                     const txHash = await lucid.newTx()
-                        .collectFrom([borrowerUtxos[0]], CancelRedeemer())
                         .collectFrom([utxos[0]], CancelRedeemer())
                         // .payToAddress(walletAddress, { lovelace: collateralAmnt })
                         .attachSpendingValidator(reqValidator)
@@ -296,7 +295,7 @@ export const cancelRequest = async (lucid: Lucid, index: number, datum: any) => 
                         // .mintAssets({ [assetName]: BigInt(-1) }, burnRedeemer)
                         // .attachMintingPolicy(mintingPolicy)
                         .validFrom(Date.now())
-                        .validTo(new Date('3/15/2024').getTime())
+                        .validTo(new Date('3/20/2024').getTime())
                         .complete()
                         .then((tx) => tx.sign().complete())
                         .then((tx) => tx.submit())

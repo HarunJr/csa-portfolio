@@ -29,6 +29,9 @@ const Home: NextPage = () => {
           setBalance(res.addressInfo.balance),
           setIsLoading(false) // Set loading to false after data is fetched
         })
+
+        console.log("Wallet Balance: ---"+balance)
+
       // .then((res: any) => { setBalance(res.addressInfo.balance) })
     }
     else {

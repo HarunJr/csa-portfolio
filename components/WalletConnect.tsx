@@ -1,3 +1,4 @@
+'use client'
 import { Lucid, Blockfrost, C } from "lucid-cardano";
 import { useState, useEffect } from 'react';
 import { useStoreActions, useStoreState } from "../utils/store";
@@ -18,14 +19,14 @@ const WalletConnect = () => {
             window.cardano &&
             (await window.cardano[walletStore.wallet.name.toLowerCase()].enable())
         ) {
-            walletConnected(walletStore.wallet.name)
+            walletConnected(walletStore.wallet.name, true)
         }
     }
 
-    const walletConnected = async (wallet: string, connect: boolean = true) => {
+    const walletConnected = async (wallet: string, connect: boolean) => {
         const lucid = await initLucid(wallet);
         const addr = connect && lucid ? await lucid.wallet.address() : ''
-        const walletStoreObj = connect ? { connected: true, name: wallet, address: addr } : { connected: false, name: '', address: '' }
+        const walletStoreObj = connect ? { connected: connect, name: wallet, address: addr } : { connected: false, name: '', address: '' }
       
         console.log("Address: "+addr)
         setConnectedAddress(addr)
@@ -33,11 +34,8 @@ const WalletConnect = () => {
     }
 
     const selectWallet = async (wallet: string) => {
-        if (
-            window.cardano &&
-            (await window.cardano[wallet.toLocaleLowerCase()].enable())
-        ) {
-            walletConnected(wallet)
+        if (window.cardano &&(await window.cardano[wallet.toLocaleLowerCase()].enable())) {
+            walletConnected(wallet, true)
         }
     }
 
@@ -54,6 +52,9 @@ const WalletConnect = () => {
             if (window.cardano.nami) wallets.push('Nami')
             if (window.cardano.eternl) wallets.push('Eternl')
             if (window.cardano.flint) wallets.push('Flint')
+            if (window.cardano.yoroi) wallets.push('Yoroi')
+            if (window.cardano.lace) wallets.push('Lace')
+
             loadWalletSession()
         }
         setAvailableWallets(wallets)

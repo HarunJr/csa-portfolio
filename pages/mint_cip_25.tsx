@@ -27,20 +27,20 @@ const MintCip68 : NextPage = () => {
 
     useEffect(() => {
       if (lucid) {
-        setIsLoading(true) // Set loading to true when fetching data
+        // setIsLoading(true) // Set loading to true when fetching data
         getAssets(walletStore.address)
         .then((res: any) => { setNftList(res.addressInfo.nfts), setBalance(res.addressInfo.balance) })
-        setIsLoading(false) // Set loading to false after data is fetched
+        // setIsLoading(false) // Set loading to false after data is fetched
 
       } else {
-        setIsLoading(true) // Set loading to true when fetching data
+        // setIsLoading(true) // Set loading to true when fetching data
         initLucid(walletStore.name).then((Lucid: Lucid | undefined) => { setLucid(Lucid) })
       }
     }, [lucid]);
 
-    if (isLoading) {
-      return <div>Loading...</div> // Render a loading message while fetching data
-    }
+    // if (isLoading) {
+    //   return <div>Loading...</div> // Render a loading message while fetching data
+    // }
   
 
     // const MintRedeemerSchema = Data.Enum([
@@ -111,7 +111,7 @@ const MintCip68 : NextPage = () => {
                 <div className="card-body items-center text-center">
                     <p>Mint any CIP25 tokens</p>
                     <div className="card-actions flex-row">
-                    <button className="btn btn-primary m-5" onClick={() => { mintNft(lucid, tokenNameInput)}}> Mint</button>
+                    <button className="btn btn-primary m-5" onClick={() => { mintNft(lucid, tokenNameInput) }}> Mint</button>
                     {/* <button className="btn btn-primary m-5" onClick={() => { burnNft() }}> Burn</button> */}
                 </div>
             </div>
